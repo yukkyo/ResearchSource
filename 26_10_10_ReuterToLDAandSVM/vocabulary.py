@@ -3,15 +3,6 @@
 
 import nltk, re
 
-# コーパスをロードする
-def load_corpus(range):
-    m = re.match(r'(\d+):(\d+)$', range)
-    if m:
-        start = int(m.group(1))
-        end = int(m.group(2))
-        from nltk.corpus import brown as corpus
-        return [corpus.words(fileid) for fileid in corpus.fileids()[start:end]]
-
 def load_file(filename):
     corpus = []
     f = open(filename, 'r')
@@ -23,13 +14,23 @@ def load_file(filename):
     return corpus
 
 # ロイターコーパスをロードする
-def load_corpus_reuters(range):
-    m = re.match(r'(\d+):(\d+)$', range)
-    if m:
-        start = int(m.group(1))
-        end = int(m.group(2))
-        from nltk.corpus import reuters as corpus
-        return [corpus.words(fileid) for fileid in corpus.fileids()[start:end]]
+# コーパスは文書の集合であり、各文書はwordsとcategoryを持っている
+def load_corpus():
+    from nltk.corpus import reuters
+    corpus = []
+    all_documents = 0
+    one_category_documents = 0
+    for fileid in reuters.fileids():
+        all_documents += 1
+        if len(reuters.categories(fileid)) == 1:
+            one_category_documents += 1
+            document = {}
+            document["words"] = reuters.words(fileid)
+            document["category"] = reuters.categories(fileid)
+            corpus.append(document)
+    print "all documents:",all_documents
+    print "one category documents:",one_category_documents
+    return corpus
 
 # ストップワードリスト
 stopwords_list = nltk.corpus.stopwords.words('english')
