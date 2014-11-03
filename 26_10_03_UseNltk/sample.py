@@ -1,4 +1,3 @@
-# ロイターコーパスにおいて複数のカテゴリが割り当てられてる記事の個数をカウントする
 from nltk.corpus import reuters
 count = 0
 for fileid in reuters.fileids():
