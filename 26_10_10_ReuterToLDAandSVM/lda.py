@@ -142,5 +142,14 @@ def main():
     #cProfile.runctx('lda_learning(lda, options.iteration, voca)', globals(), locals(), 'lda.profile')
     lda_learning(lda, options.iteration, voca)
 
+def test():
+    import vocabulary
+    corpus = vocabulary.load_corpus()
+    print corpus[20]["category"]
+    for word in corpus[20]["words"]:
+        print word
+    print "success!!"
+
 if __name__ == "__main__":
-    main()
+    # main()
+    test()
