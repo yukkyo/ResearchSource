@@ -18,6 +18,7 @@ def load_file(filename):
 def load_corpus():
     from nltk.corpus import reuters
     corpus = []
+    categories = []
     all_documents = 0
     one_category_documents = 0
     for fileid in reuters.fileids():
@@ -25,12 +26,11 @@ def load_corpus():
         if len(reuters.categories(fileid)) == 1:
             one_category_documents += 1
             document = {}
-            document["words"] = reuters.words(fileid)
-            document["category"] = reuters.categories(fileid)
-            corpus.append(document)
+            corpus.append(reuters.words(fileid))
+            categories.append(reuters.categories(fileid))
     print "all documents:",all_documents
     print "one category documents:",one_category_documents
-    return corpus
+    return corpus, categories
 
 # ストップワードリスト
 stopwords_list = nltk.corpus.stopwords.words('english')
@@ -69,6 +69,7 @@ class Vocabulary:
             voca_id = self.vocas_id[term]
         return voca_id
 
+    # 文書を語彙idの集合に変換する
     def doc_to_ids(self, doc):
         #print ' '.join(doc)
         list = []
@@ -83,6 +84,7 @@ class Vocabulary:
         if "close" in dir(doc): doc.close()
         return list
 
+    # 低頻度の語彙を削除する
     def cut_low_freq(self, corpus, threshold=1):
         new_vocas = []
         new_docfreq = []

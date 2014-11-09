@@ -74,20 +74,32 @@ class LDA:
             N += len(doc)
         return numpy.exp(log_per / N)
 
+    # 各文書におけるトピックの確率を返す関数
+    def calc_thetas(self, docs=None):
+        if docs == None: docs = self.docs
+        thetas = numpy.zeros((len(self.docs), self.K))
+        # Kalpha = self.K * self.alpha
+        for m, doc in enumerate(docs):
+            # doc_topic_dist[m] = self.n_m_z[m] / (len(self.docs[m]) + Kalpha)
+            thetas[m] = self.n_m_z[m] / self.n_m_z[m].sum()
+        return thetas
+
 def lda_learning(lda, iteration, voca):
     pre_perp = lda.perplexity()
     print "initial perplexity=%f" % pre_perp
     for i in range(iteration):
         lda.inference()
-        perp = lda.perplexity()
-        print "-%d p=%f" % (i + 1, perp)
-        if pre_perp:
-            if pre_perp < perp:
-                output_word_topic_dist(lda, voca)
-                pre_perp = None
-            else:
-                pre_perp = perp
+        # perp = lda.perplexity()
+        # print "-%d p=%f" % (i + 1, perp)
+        # if pre_perp:
+        #     if pre_perp < perp:
+        #         output_word_topic_dist(lda, voca)
+        #         pre_perp = None
+        #     else:
+        #         pre_perp = perp
     output_word_topic_dist(lda, voca)
+    thetas = lda.calc_thetas()
+    return thetas
 
 def output_word_topic_dist(lda, voca):
     zcount = numpy.zeros(lda.K, dtype=int)
@@ -101,17 +113,21 @@ def output_word_topic_dist(lda, voca):
                 wordcount[z][x] = 1
 
     phi = lda.worddist()
-    for k in xrange(lda.K):
-        print "\n-- topic: %d (%d words)" % (k, zcount[k])
-        for w in numpy.argsort(-phi[k])[:20]:
-            print "%s: %f (%d)" % (voca[w], phi[k,w], wordcount[k].get(w,0))
+    # for k in xrange(lda.K):
+    #     print "\n-- topic: %d (%d words)" % (k, zcount[k])
+    #     for w in numpy.argsort(-phi[k])[:20]:
+    #         print "%s: %f (%d)" % (voca[w], phi[k,w], wordcount[k].get(w,0))
 
 def main():
     import optparse
     import vocabulary
+    import shelve
+    # import shelve
+
+    # オプションの読み込み
     parser = optparse.OptionParser()
     parser.add_option("-f", dest="filename", help="corpus filename")
-    parser.add_option("-c", dest="corpus", help="using range of Brown corpus' files(start:end)")
+    # parser.add_option("-c", dest="corpus", help="using range of Brown corpus' files(start:end)")
     parser.add_option("--alpha", dest="alpha", type="float", help="parameter alpha", default=0.5)
     parser.add_option("--beta", dest="beta", type="float", help="parameter beta", default=0.5)
     parser.add_option("-k", dest="K", type="int", help="number of topics", default=20)
@@ -121,35 +137,45 @@ def main():
     parser.add_option("--seed", dest="seed", type="int", help="random seed")
     parser.add_option("--df", dest="df", type="int", help="threshold of document freaquency to cut words", default=0)
     (options, args) = parser.parse_args()
-    if not (options.filename or options.corpus): parser.error("need corpus filename(-f) or corpus range(-c)")
+    # if not (options.filename or options.corpus): parser.error("need corpus filename(-f) or corpus range(-c)")
 
+    # コーパスの読み込み
     if options.filename:
         corpus = vocabulary.load_file(options.filename)
+        categories = []
     else:
-        corpus = vocabulary.load_corpus(options.corpus)
-        if not corpus: parser.error("corpus range(-c) forms 'start:end'")
+        corpus, categories = vocabulary.load_corpus()
+    # 乱数のシード設定
     if options.seed != None:
         numpy.random.seed(options.seed)
-
+    # コーパス中の文書をbag of wordsに変形
     voca = vocabulary.Vocabulary(options.stopwords)
     docs = [voca.doc_to_ids(doc) for doc in corpus]
+    # 低頻度の語彙をカット
     if options.df > 0: docs = voca.cut_low_freq(docs, options.df)
-
+    # LDAの初期設定
     lda = LDA(options.K, options.alpha, options.beta, docs, voca.size(), options.smartinit)
     print "corpus=%d, words=%d, K=%d, a=%f, b=%f" % (len(corpus), len(voca.vocas), options.K, options.alpha, options.beta)
-
-    #import cProfile
-    #cProfile.runctx('lda_learning(lda, options.iteration, voca)', globals(), locals(), 'lda.profile')
-    lda_learning(lda, options.iteration, voca)
+    # 推論(指定回数分回したら文書-トピック分布を返す)
+    # lda_learning(lda, options.iteration, voca)
+    thetas = lda_learning(lda, options.iteration, voca)
+    address = './t' + str(options.K) + '_a' + str(options.alpha) + '_b' + str(options.beta) + '_i' + str(options.iteration)
+    # 保存用のファイルオープン
+    dic = shelve.open(address)
+    dic['thetas'] = thetas
+    dic['categories'] = categories
+    dic.close()
+    print "end!"
+    print thetas[100]
 
 def test():
     import vocabulary
-    corpus = vocabulary.load_corpus()
-    print corpus[20]["category"]
-    for word in corpus[20]["words"]:
+    corpus, categories = vocabulary.load_corpus()
+    print categories[20]
+    for word in corpus[20]:
         print word
     print "success!!"
 
 if __name__ == "__main__":
-    # main()
-    test()
+    main()
+    # test()
