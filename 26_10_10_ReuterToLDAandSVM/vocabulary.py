@@ -21,7 +21,7 @@ def load_corpus():
     corpus = []
     categories = []
     all_documents = 0
-    one_category_documents = 0
+    target_documents = 0
     for fileid in reuters.fileids():
         all_documents += 1
         if len(reuters.categories(fileid)) == 1:
