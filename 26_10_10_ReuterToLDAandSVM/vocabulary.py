@@ -17,6 +17,7 @@ def load_file(filename):
 # コーパスは文書の集合であり、各文書はwordsとcategoryを持っている
 def load_corpus():
     from nltk.corpus import reuters
+    category_dic = {'crude':0, 'trade':1, 'money-fx':2, 'interest':3, 'money-supply':4, 'ship':5, 'sugar':6, 'coffee':7, 'gold':8, 'gnp':9}
     corpus = []
     categories = []
     all_documents = 0
@@ -24,12 +25,13 @@ def load_corpus():
     for fileid in reuters.fileids():
         all_documents += 1
         if len(reuters.categories(fileid)) == 1:
-            one_category_documents += 1
-            document = {}
-            corpus.append(reuters.words(fileid))
-            categories.append(reuters.categories(fileid))
+            for category in reuters.categories(fileid):
+                if category in category_dic:
+                    target_documents += 1
+                    corpus.append(reuters.words(fileid))
+                    categories.append(category_dic[category])
     print "all documents:",all_documents
-    print "one category documents:",one_category_documents
+    print "one category documents:",target_documents
     return corpus, categories
 
 # ストップワードリスト

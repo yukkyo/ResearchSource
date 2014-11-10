@@ -159,11 +159,11 @@ def main():
 
     # 推論(指定回数分回したら文書-トピック分布を返す)
     thetas = lda_learning(lda, options.iteration, voca)
-    address = './t' + str(options.K) + '_a' + str(options.alpha) + '_b' + str(options.beta) + '_i' + str(options.iteration)
+    address = './c10_t' + str(options.K) + '_a' + str(options.alpha) + '_b' + str(options.beta) + '_i' + str(options.iteration)
     # 保存用のファイルオープン
     dic = shelve.open(address)
     dic['thetas'] = thetas
-    dic['categories'] = categories
+    dic['categories'] = numpy.array(categories)
     dic.close()
     print "end!"
     print thetas[100]
