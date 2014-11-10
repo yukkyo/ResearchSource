@@ -89,6 +89,7 @@ def lda_learning(lda, iteration, voca):
     print "initial perplexity=%f" % pre_perp
     for i in range(iteration):
         lda.inference()
+        print "iteration: " + str(i)
         # perp = lda.perplexity()
         # print "-%d p=%f" % (i + 1, perp)
         # if pre_perp:
@@ -122,7 +123,6 @@ def main():
     import optparse
     import vocabulary
     import shelve
-    # import shelve
 
     # オプションの読み込み
     parser = optparse.OptionParser()
@@ -156,8 +156,8 @@ def main():
     # LDAの初期設定
     lda = LDA(options.K, options.alpha, options.beta, docs, voca.size(), options.smartinit)
     print "corpus=%d, words=%d, K=%d, a=%f, b=%f" % (len(corpus), len(voca.vocas), options.K, options.alpha, options.beta)
+
     # 推論(指定回数分回したら文書-トピック分布を返す)
-    # lda_learning(lda, options.iteration, voca)
     thetas = lda_learning(lda, options.iteration, voca)
     address = './t' + str(options.K) + '_a' + str(options.alpha) + '_b' + str(options.beta) + '_i' + str(options.iteration)
     # 保存用のファイルオープン
@@ -177,5 +177,5 @@ def test():
     print "success!!"
 
 if __name__ == "__main__":
-    main()
     # test()
+    main()
