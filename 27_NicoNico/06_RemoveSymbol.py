@@ -7,11 +7,9 @@ import re
 # 形態素解析した結果から、いらない単語を除去する
 
 MAX_PICKLE_FILES = 6
-# MAX_SHELVE_FILES = 6
 FILES_PER_SHELVE = 50
 
 video_count = 0
-dic_file_name = "../../ResearchData/All_Tags"
 after_mecab_file = "../../ResearchData/After_Mecab/after_mecab"
 after_remove_file = "../../ResearchData/After_Remove/after_remove_stop_word"
 # pattern = re.compile(u"[ぁ-んァ-ン一-龥]+")
