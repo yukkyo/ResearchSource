@@ -4,44 +4,44 @@
 import cPickle
 import re
 
-# 形態素解析した結果から、いらない単語を除去する
+# 形態素解析した結果から、記号や数字のみの単語を削除する
 
-MAX_PICKLE_FILES = 6
-FILES_PER_SHELVE = 50
+after_mecab_file = "../../ResearchData/Experiment2/after_mecab/after_mecab"
+f_docs_without_symbols = "../../ResearchData/Experiment2/after_mecab/docs_without_symbols"
 
-video_count = 0
-after_mecab_file = "../../ResearchData/After_Mecab/after_mecab"
-after_remove_file = "../../ResearchData/After_Remove/after_remove_stop_word"
-# pattern = re.compile(u"[ぁ-んァ-ン一-龥]+")
 pattern = re.compile(u"[0-9]*[a-zA-Zぁ-んァ-ン一-龥]+[0-9]*")
+video_count = 0
+add_file_name_list = ["1.pkl", "2.pkl", "_test.pkl"]
 
-for num in range(0, MAX_PICKLE_FILES):
-	# pickle file open
-	with open(after_mecab_file + str(num) + '.pkl', 'rb') as f:
-		print "open pickle file for load: after_mecab_file" + str(num)
-		after_mecabs = cPickle.load(f)
+for name in add_file_name_list:
+	with open(after_mecab_file + name, 'rb') as f:
+		print "open: " + after_mecab_file + name
+		docs = cPickle.load(f)
+
 		print "convert str to unicode (decode)"
-		after_mecabs_decoded = [[word.decode('utf-8') for word in after_mecab] for after_mecab in after_mecabs]
-		print "len(after_mecabs_decoded):" + str(len(after_mecabs_decoded))
-		after_mecabs = None
-		documents_after_remove = []
-		append = documents_after_remove.append
-		# 各文書からいらない単語を除去する
-		for document in after_mecabs_decoded:
-			doc_after_remove = [w for w in document if not w.find('___')]
-			doc_after_remove.extend([w for w in document if pattern.match(w)])
-			append(doc_after_remove)
+		docs_decoded = [ [ w.decode('utf-8') for w in doc] for doc in docs]
+		print "len(docs_decoded):" + str(len(docs_decoded))
+		docs = None
+
+		docs_without_symbols = []
+		append = docs_without_symbols.append
+
+		for doc in docs_decoded:
+			doc_without_symbols = [w for w in doc if not w.find('___')]
+			doc_without_symbols.extend([w for w in doc if pattern.match(w)])
+			append(doc_without_symbols)
 			video_count += 1
-			if video_count % 2000 == 0 :
+			if video_count % 5000 == 0 :
 				print "end videos: " + str(video_count)
-		print "len(documents_after_remove):" + str(len(documents_after_remove))
-		after_mecabs_decoded = None
+		docs_decoded = None
+
 		print 'convert unicode to str (encode)'
-		encoded_documents = [[word.encode('utf-8') for word in document] for document in documents_after_remove]
-		documents_after_remove = None
-		print "len(encoded_documents):" + str(len(encoded_documents))
-		with open(after_remove_file + str(num) + '.pkl', 'wb') as f_save:
-			print "open pickle file for save: after_remove_file" + str(num)
-			cPickle.dump(encoded_documents, f_save, cPickle.HIGHEST_PROTOCOL)
+		docs_encoded = [[w.encode('utf-8') for w in doc] for doc in docs_without_symbols]
+		docs_without_symbols = None
+		print "len(docs_encoded):" + str(len(docs_encoded))
+
+		with open(f_docs_without_symbols + name, 'wb') as f_save:
+			print "open for saving: " + f_docs_without_symbols + name
+			cPickle.dump(docs_encoded, f_save, cPickle.HIGHEST_PROTOCOL)
 			print "end save"
 			print "end videos: " + str(video_count)
