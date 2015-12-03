@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 # cython: profile=True, boundscheck=False, wraparound=False
 
+from __future__ import division
 import numpy as np
 cimport numpy as np
 cimport cython
+from libc.stdlib cimport rand, RAND_MAX
 DTYPE = np.int
 ctypedef np.int_t DTYPE_t
 from libcpp.vector cimport vector
@@ -26,16 +28,22 @@ class LDA:
 		self.V = V         # size of vocabulary
 		print "end lda instance"
 
+	@cython.cdivision(True)
 	def initialize_topics(self):
 		print "initalize topics"
 		cdef vector[vector[int]] docs = self.docs
 		cdef int n_corpus, len_doc, m, n, new_z, v
+		cdef int n_topics_int = self.n_topics
+		cdef double n_topics = self.n_topics
 		cdef np.ndarray[np.double_t, ndim=1] p_z
+		cdef double alpha = self.alpha
+		cdef double beta = self.beta
+		cdef double V = self.V
 		# number of times topic z and word w co-occur
-		cdef np.ndarray[np.double_t, ndim=2] n_z_t = np.zeros((self.n_topics, self.V), dtype=np.double) + self.alpha
-		cdef np.ndarray[np.double_t, ndim=1] n_z = np.zeros(self.n_topics, dtype=np.double) + self.V * self.beta
+		cdef np.ndarray[np.double_t, ndim=2] n_z_t = np.zeros([n_topics_int, V], dtype=np.double) + alpha
+		cdef np.ndarray[np.double_t, ndim=1] n_z = np.zeros(n_topics_int, dtype=np.double) + V * beta
 		cdef int max_docs = docs.size()
-		cdef np.ndarray[np.double_t, ndim=2] n_m_z = np.zeros((max_docs, self.n_topics), dtype=np.double)
+		cdef np.ndarray[np.double_t, ndim=2] n_m_z = np.zeros([max_docs, n_topics_int], dtype=np.double)
 		cdef vector[vector[int]] z_m_n
 		cdef vector[int] z_n
 
@@ -45,7 +53,8 @@ class LDA:
 			z_n.clear()
 			for n in xrange(len_doc):
 				v = docs[m][n]
-				new_z = np.random.randint(0, self.n_topics)
+				# new_z = np.random.randint(0, self.n_topics)
+				new_z = int(rand()/(RAND_MAX * n_topics))
 				z_n.push_back(new_z)
 				n_m_z[m, new_z] += 1
 				n_z_t[new_z, v] += 1
@@ -61,6 +70,7 @@ class LDA:
 		self.z_m_n = z_m_n # topics of words of documents
 		print "end initialize topics"
 
+	@cython.cdivision(True)
 	def inference(self):
 		"""learning once iteration"""
 		cdef vector[vector[int]] docs = self.docs
