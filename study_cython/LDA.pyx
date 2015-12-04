@@ -185,7 +185,8 @@ class LDA:
 				n_m_z[m, new_z] += 1
 				n_z_t[new_z, v] += 1
 				n_z[new_z] += 1
-
+			if m % 100000 == 0:
+				print "end docs: " + str(m)
 		self.n_z_t = n_z_t
 		self.n_z = n_z
 		self.n_m_z = n_m_z
