@@ -19,10 +19,13 @@ lda = LDA.LDA(2, 0.5, 0.5, docs, 10)
 lda.initialize_topics()
 print lda.docs
 print lda.z_m_n
-lda.inference()
-print lda.z_m_n
-lda.inference()
-print lda.z_m_n
+print "-----"
+print "n_z_t"
+print lda.n_z_t
+print "-----"
+print "n_z"
+print lda.n_z
+print "infernce start"
 lda.inference()
 print lda.z_m_n
 lda.inference()
