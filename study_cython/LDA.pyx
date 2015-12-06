@@ -80,54 +80,6 @@ class LDA:
 		print "end initialize topics"
 		return
 
-	# @cython.cdivision(True)
-	# def inference(self):
-	# 	"""learning once iteration"""
-	# 	cdef vector[vector[int]] docs = self.docs
-	# 	cdef int max_docs = docs.size()
-	# 	cdef int len_doc, m, n, v, new_z
-	# 	cdef np.ndarray[np.double_t, ndim=1] p_z
-	# 	cdef np.ndarray[np.double_t, ndim=2] n_z_t = self.n_z_t
-	# 	cdef np.ndarray[np.double_t, ndim=1] n_z = self.n_z
-	# 	cdef np.ndarray[np.double_t, ndim=2] n_m_z = self.n_m_z
-	# 	cdef np.ndarray[np.double_t, ndim=1] tmp_n_m_z
-	# 	cdef np.ndarray[np.double_t, ndim=1] tmp_n_z_t
-	# 	cdef vector[vector[int]] z_m_n = self.z_m_n
-	# 	cdef vector[int] z_n
-
-	# 	for m in xrange(max_docs):
-	# 		len_doc = docs[m].size()
-	# 		z_n = z_m_n[m]
-	# 		tmp_n_m_z = n_m_z[m]
-	# 		for n in xrange(len_doc):
-	# 			v = docs[m][n]
-	# 			# discount for n-th word n with topic z
-	# 			z = z_n[n]
-	# 			tmp_n_m_z[z] -= 1
-	# 			n_z_t[z, v] -= 1
-	# 			n_z[z] -= 1
-
-	# 			# sampling topic new_z for n
-	# 			tmp_n_z_t = n_z_t[:, v]
-	# 			p_z = tmp_n_z_t * tmp_n_m_z / n_z
-	# 			p_z /= p_z.sum(axis=0)
-	# 			new_z = np.random.multinomial(1, p_z).argmax()
-
-	# 			# set z the new topic and increment counters
-	# 			z_n[n] = new_z
-	# 			tmp_n_m_z[new_z] += 1
-	# 			n_z_t[new_z, v] += 1
-	# 			n_z[new_z] += 1
-
-	# 		# z_m_n[m] = z_n
-	# 		# n_m_z[m] = tmp_n_m_z
-
-	# 	self.n_z_t = n_z_t
-	# 	self.n_z = n_z
-	# 	self.n_m_z = n_m_z
-	# 	self.z_m_n = z_m_n
-	# 	return
-
 	@cython.cdivision(True)
 	def inference(self):
 		"""learning once iteration"""
@@ -143,55 +95,103 @@ class LDA:
 		cdef vector[vector[int]] z_m_n = self.z_m_n
 		cdef vector[int] z_n
 
-		cdef vector[double] p_z2
-		cdef int j
-		cdef int n_topics = self.n_topics
-		cdef double p_z2j, sum_p_z
-		cdef double u
-
 		for m in xrange(max_docs):
 			len_doc = docs[m].size()
+			z_n = z_m_n[m]
+			tmp_n_m_z = n_m_z[m]
 			for n in xrange(len_doc):
 				v = docs[m][n]
 				# discount for n-th word n with topic z
-				z = z_m_n[m][n]
-				n_m_z[m, z] -= 1
+				z = z_n[n]
+				tmp_n_m_z[z] -= 1
 				n_z_t[z, v] -= 1
 				n_z[z] -= 1
 
 				# sampling topic new_z for n
-				# どうせなら行列演算も全部for文書いた方がよい？
-				# tmp_n_z_t = n_z_t[:, v]
-				# p_z = tmp_n_z_t * n_m_z[m] / n_z
-				# p_z /= p_z.sum(axis=0)
-				# new_z = np.random.multinomial(1, p_z).argmax()
-
-				# sampling 2
-				p_z2.clear()
-				for j in xrange(n_topics):
-					p_z2j = n_z_t[j, v] * n_m_z[m, j] / n_z[j]
-					if j != 0:
-						p_z2j += p_z2[j-1]
-					p_z2.push_back(p_z2j)
-				u = (rand()/(RAND_MAX +1.)) * p_z2[n_topics - 1]
-				new_z = n_topics - 1
-				for j in xrange(n_topics):
-					if u < p_z2[j]:
-						new_z = j
-						break
+				tmp_n_z_t = n_z_t[:, v]
+				p_z = tmp_n_z_t * tmp_n_m_z / n_z
+				p_z /= p_z.sum(axis=0)
+				new_z = np.random.multinomial(1, p_z).argmax()
 
 				# set z the new topic and increment counters
-				z_m_n[m][n] = new_z
-				n_m_z[m, new_z] += 1
+				z_n[n] = new_z
+				tmp_n_m_z[new_z] += 1
 				n_z_t[new_z, v] += 1
 				n_z[new_z] += 1
-			if m % 100000 == 0:
-				print "end docs: " + str(m)
+
+			# z_m_n[m] = z_n
+			# n_m_z[m] = tmp_n_m_z
+
 		self.n_z_t = n_z_t
 		self.n_z = n_z
 		self.n_m_z = n_m_z
 		self.z_m_n = z_m_n
 		return
+
+	# @cython.cdivision(True)
+	# def inference(self):
+	# 	"""learning once iteration"""
+	# 	cdef vector[vector[int]] docs = self.docs
+	# 	cdef int max_docs = docs.size()
+	# 	cdef int len_doc, m, n, v, new_z
+	# 	cdef np.ndarray[np.double_t, ndim=1] p_z
+	# 	cdef np.ndarray[np.double_t, ndim=2] n_z_t = self.n_z_t
+	# 	cdef np.ndarray[np.double_t, ndim=1] n_z = self.n_z
+	# 	cdef np.ndarray[np.double_t, ndim=2] n_m_z = self.n_m_z
+	# 	cdef np.ndarray[np.double_t, ndim=1] tmp_n_m_z
+	# 	cdef np.ndarray[np.double_t, ndim=1] tmp_n_z_t
+	# 	cdef vector[vector[int]] z_m_n = self.z_m_n
+	# 	cdef vector[int] z_n
+
+	# 	cdef vector[double] p_z2
+	# 	cdef int j
+	# 	cdef int n_topics = self.n_topics
+	# 	cdef double p_z2j, sum_p_z
+	# 	cdef double u
+
+	# 	for m in xrange(max_docs):
+	# 		len_doc = docs[m].size()
+	# 		for n in xrange(len_doc):
+	# 			v = docs[m][n]
+	# 			# discount for n-th word n with topic z
+	# 			z = z_m_n[m][n]
+	# 			n_m_z[m, z] -= 1
+	# 			n_z_t[z, v] -= 1
+	# 			n_z[z] -= 1
+
+	# 			# sampling topic new_z for n
+	# 			# どうせなら行列演算も全部for文書いた方がよい？
+	# 			# tmp_n_z_t = n_z_t[:, v]
+	# 			# p_z = tmp_n_z_t * n_m_z[m] / n_z
+	# 			# p_z /= p_z.sum(axis=0)
+	# 			# new_z = np.random.multinomial(1, p_z).argmax()
+
+	# 			# sampling 2
+	# 			p_z2.clear()
+	# 			for j in xrange(n_topics):
+	# 				p_z2j = n_z_t[j, v] * n_m_z[m, j] / n_z[j]
+	# 				if j != 0:
+	# 					p_z2j += p_z2[j-1]
+	# 				p_z2.push_back(p_z2j)
+	# 			u = (rand()/(RAND_MAX +1.)) * p_z2[n_topics - 1]
+	# 			new_z = n_topics - 1
+	# 			for j in xrange(n_topics):
+	# 				if u < p_z2[j]:
+	# 					new_z = j
+	# 					break
+
+	# 			# set z the new topic and increment counters
+	# 			z_m_n[m][n] = new_z
+	# 			n_m_z[m, new_z] += 1
+	# 			n_z_t[new_z, v] += 1
+	# 			n_z[new_z] += 1
+	# 		if m % 100000 == 0:
+	# 			print "end docs: " + str(m)
+	# 	self.n_z_t = n_z_t
+	# 	self.n_z = n_z
+	# 	self.n_m_z = n_m_z
+	# 	self.z_m_n = z_m_n
+	# 	return
 
 
 
