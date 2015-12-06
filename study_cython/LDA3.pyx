@@ -34,15 +34,14 @@ class LDA:
 	def initialize_topics(self):
 		print "initalize topics"
 		cdef vector[vector[long]] docs = self.docs
-		cdef long n_corpus, len_doc, m, n, new_z, v
-		n_corpus = 0
-		cdef long n_topics_int = self.n_topics
+		cdef long n_corpus, len_doc, m, v
+		cdef int new_z, n
+		cdef int n_topics_int = self.n_topics
 		cdef double n_topics = self.n_topics
 		cdef double alpha = self.alpha
 		cdef double beta = self.beta
 		cdef double V = self.V
 		cdef double Vbeta = V * beta
-		n_topics_s = self.n_topics
 		v2 = self.V
 		# number of times topic z and word w co-occur
 		cdef long max_docs = 1
@@ -57,10 +56,10 @@ class LDA:
 		cdef vector[double] n_z
 		n_z = vector[double](n_topics_int, Vbeta)
 
-		cdef vector[vector[long]] z_m_n
-		cdef vector[long] z_n
+		cdef vector[vector[int]] z_m_n
+		cdef vector[int] z_n
 
-		cdef vector[long] docs_lens
+		cdef vector[int] docs_lens
 		docs_lens.resize(max_docs)
 		for m in xrange(max_docs):
 			docs_lens[m] = docs[m].size()
@@ -71,7 +70,7 @@ class LDA:
 			z_n.clear()
 			for n in xrange(len_doc):
 				v = docs[m][n]
-				new_z = long((rand()/(RAND_MAX +1.)) * n_topics)
+				new_z = int((rand()/(RAND_MAX +1.)) * n_topics)
 				# p_z = n_z_t[:, v] * n_m_z[m] / n_z
 				# new_z = np.random.multinomial(1, p_z / p_z.sum()).argmax()
 				z_n.push_back(new_z)
@@ -88,7 +87,6 @@ class LDA:
 		self.n_z = n_z
 		self.z_m_n = z_m_n # topics of words of documents
 		print "end initialize topics"
-		return
 
 	@cython.cdivision(True)
 	def inference(self):
@@ -100,7 +98,10 @@ class LDA:
 		cdef long n_topics = self.n_topics
 		cdef vector[vector[double]] n_z_t = self.n_z_t
 		cdef vector[vector[double]] n_m_z = self.n_m_z
-		cdef vector[vector[long]] z_m_n = self.z_m_n
+		cdef vector[vector[int]] z_m_n = self.z_m_n
+		self.n_m_z = None
+		self.z_m_n = None
+		self.z_m_n = None
 		cdef vector[double] n_z = self.n_z
 		cdef vector[long] z_n
 		cdef vector[double] p_z2
@@ -119,6 +120,7 @@ class LDA:
 				n_z[z] -= 1
 
 				# sampling new_z
+				p_z2.clear()
 				for j in xrange(n_topics):
 					p_z2j = n_z_t[j][v] * n_m_z[m][j]
 					p_z2j /= n_z[j]
@@ -146,7 +148,6 @@ class LDA:
 		self.n_z = n_z
 		self.n_m_z = n_m_z
 		self.z_m_n = z_m_n
-		return
 
 	# def worddist(self):
 	# 	"""get topic-word distribution"""
@@ -165,13 +166,15 @@ class LDA:
 		cdef vector[double] n_z = self.n_z
 		cdef double n_topics_double = self.n_topics
 		cdef double alpha = self.alpha
+		cdef double n_z_j
 		print "calc phi"
 		cdef vector[vector[double]] phi
 		phi = vector[vector[double]](n_topics, vector[double](V))
 		cdef vector[double] theta
 		cdef double Kalpha = n_topics_double * alpha
 		cdef double log_per = 0.
-		cdef double tmp_logper, len_doc_kalpha, n_z_j
+		cdef double tmp_logper
+		cdef double len_doc_kalpha
 
 		for j in xrange(n_topics):
 			n_z_j = n_z[j]
