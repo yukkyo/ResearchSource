@@ -8,6 +8,6 @@ Options.annotate = True
 
 setup(
 	cmdclass = {'build_ext': build_ext},
-	ext_modules = [Extension("LDA", ["LDA.pyx"],
+	ext_modules = [Extension("LDA2", ["LDA2.pyx"],
 			language="c++", include_dirs=[np.get_include()])]
 )
