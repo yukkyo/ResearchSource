@@ -33,7 +33,7 @@ class LDA:
 		cdef int n_topics_int = self.n_topics
 		cdef int V_int = self.V
 		cdef double n_topics = self.n_topics
-
+		cdef double n_corpus_double
 		# cdef double alpha = self.alpha
 		cdef double init_alpha = self.init_alpha
 		cdef vector[double] alphas
@@ -79,6 +79,7 @@ class LDA:
 				n_z_t[v][new_z] += 1.
 				n_z[new_z] += 1
 			z_m_n.push_back(z_n)
+		n_corpus_double = <double>n_corpus
 		print "end initialize topics"
 
 		"""learning once iteration"""
@@ -124,7 +125,7 @@ class LDA:
 				log_per -= log(tmp_logper)
 		theta.clear()
 		n_z_t_tmp.clear()
-		log_per /= <double>n_corpus
+		log_per /= n_corpus_double
 		perp = exp(log_per)
 		print "perp: " + str(perp)
 		self.perps.append(perp)
@@ -203,11 +204,16 @@ class LDA:
 					numerator_beta += psi(n_z_t[j][v] + beta)
 			numerator_beta -= psi(beta) * V * n_topics
 
-			denominator_beta = psi(n_corpus + n_topics * beta) - psi(Vbeta)
+			denominator_beta = psi(n_corpus_double + n_topics * beta) - psi(Vbeta)
 			denominator_beta *= n_topics
 
 			beta *= numerator_beta / (V * denominator_beta)
 			Vbeta = beta * V
+
+			print "alpha:"
+			for j in xrange(n_topics_int):
+				print alphas[j]
+			print "beta:" + beta
 
 			print "calc perp"
 			log_per = 0.0
@@ -231,7 +237,7 @@ class LDA:
 					log_per -= log(tmp_logper)
 			theta.clear()
 			n_z_t_tmp.clear()
-			log_per /= <double>n_corpus
+			log_per /= n_corpus_double
 			perp = exp(log_per)
 			print "perp: " + str(perp)
 			self.perps.append(perp)
