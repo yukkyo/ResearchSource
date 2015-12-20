@@ -1,0 +1,23 @@
+loading: ../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl
+len(id_to_vocab) = V 142236
+loading: ../../ResearchData/Experiment2/after_LDA/k400a0.1b0.01i150_VKmatrix
+loading end
+loading: ../../ResearchData/Experiment2/after_convert_id/docs_as_id_train.pkl
+len(train_corpus): 500000
+len(test_corpus): 10000
+loading: ../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl
+make tag_ids_set
+tag count: 50047
+end make tag_ids_set
+calc topic weights of training corpus
+calc topic weights of training corpus
+estimate
+end make svm
+estimate is end
+saving: ../../ResearchData/Experiment2/after_SVM/estimated_tags_count.pkl
+saving is end
+estimate
+end make svm
+estimate is end
+saving: ../../ResearchData/Experiment2/after_SVM/estimated_tags_count_norm.pkl
+saving is end
