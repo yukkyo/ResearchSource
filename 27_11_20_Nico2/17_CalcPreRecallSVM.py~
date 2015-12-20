@@ -10,8 +10,10 @@ f_path_estimated_result = "../../ResearchData/Experiment2/after_estimated/"
 f_corpus_by_ids_train = "../../ResearchData/Experiment2/after_convert_id/docs_as_id_train.pkl"
 f_id_to_vocab = "../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl"
 f_vocab_to_id = "../../ResearchData/Experiment2/after_convert_id/dic_vocab_id.pkl"
-fpath_exp_result = "../../ResearchData/Experiment2/after_LDA/"
+fpath_exp_result = "../../ResearchData/Experiment2/after_SVM/"
 f_rand_num_list = '../../ResearchData/Experiment2/after_LDA/random_num_list.pkl'
+f_estimated_tagscount = '../../ResearchData/Experiment2/after_SVM/estimated_tags_count.pkl'
+f_estimated_tagscount_norm = '../../ResearchData/Experiment2/after_SVM/estimated_tags_count_norm.pkl'
 
 K = 400
 V = None
@@ -57,62 +59,60 @@ with open(f_corpus_by_ids_train) as f:
 	print "len(test_corpus_rand: " + str(len(test_corpus))
 correct_answers = [set([v_id for v_id in d if id_to_vocab[v_id].find('___') == 0]) for d in test_corpus]
 
+estimated_tagscount = None
+with open(f_estimated_tagscount, 'rb') as f:
+        print "open tagscount"
+        estimated_tagscount = cPickle.load(f)
+
+
 # 推薦するタグの個数毎の、precision、recall、f-measureを出す
-precisions = []
-recalls = []
-f_measures = []
 print "calc precision, recall, f-measure"
-for i in range(MAX_AUTO_TAGGING):
-	precision = 0.
-	recall = 0.
-	f_measure = 0.
-	for j, est_tags in enumerate(estimated_tags):
-		# 推薦するタグの個数だけ取り出す
-		part_of_est_tags = set(est_tags[:i+1])
-		pre = float((len(correct_answers[j] & part_of_est_tags))) / float(len(part_of_est_tags))
-		if len(correct_answers[j]) == 0:
-			rec = 0.
-		else:
-			rec = float((len(correct_answers[j] & part_of_est_tags))) / float(len(correct_answers[j]))
-		precision += pre
-		recall += rec
-		if (pre + rec) == 0:
-			f_measure += 0.
-		else:
-			f_measure += (2. * pre * rec) / (pre + rec)
-	mean_pre = precision / float(len(estimated_tags))
-	mean_rec = recall / float(len(estimated_tags))
-	mean_f_measure = f_measure / float(len(estimated_tags))
-	precisions.append(mean_pre)
-	recalls.append(mean_rec)
-	f_measures.append(mean_f_measure)
+
+precision = 0.
+recall = 0.
+f_measure = 0.
+for j, est_tags in enumerate(estimated_tags):
+	# 推薦するタグの個数だけ取り出す
+	part_of_est_tags = set(est_tags[:estimated_tagscount[j]])
+        if len(part_of_est_tags) == 0:
+                pre = 0.
+        else :
+                pre = float((len(correct_answers[j] & part_of_est_tags))) / float(len(part_of_est_tags))
+	if len(correct_answers[j]) == 0:
+		rec = 0.
+	else:
+		rec = float((len(correct_answers[j] & part_of_est_tags))) / float(len(correct_answers[j]))
+	precision += pre
+	recall += rec
+	if (pre + rec) == 0:
+		f_measure += 0.
+	else:
+		f_measure += (2. * pre * rec) / (pre + rec)
+mean_pre = precision / float(len(estimated_tags))
+mean_rec = recall / float(len(estimated_tags))
+mean_f_measure = f_measure / float(len(estimated_tags))
 
 print "precision sample"
-for i in range(20):
-	print precisions[i]
-
+print mean_pre
 print "recalls sample"
-for i in range(20):
-	print recalls[i]
-
+print mean_rec
 print "f_measures sample"
-for i in range(20):
-	print f_measures[i]
+print mean_f_measure
 
-with open(f_path_estimated_result + 'precisions_rand.csv', 'ab') as f:
-	print "saving precisions"
-	csvWriter = csv.writer(f)
-	csvWriter.writerow(range(1,51))
-	csvWriter.writerow(precisions)
+# with open(f_path_estimated_result + 'precisions_rand.csv', 'ab') as f:
+#	print "saving precisions"
+#	csvWriter = csv.writer(f)
+#	csvWriter.writerow(range(1,51))
+#	csvWriter.writerow(precisions)
 
-with open(f_path_estimated_result + 'recalls_rand.csv', 'ab') as f:
-	print "saving recalls"
-	csvWriter = csv.writer(f)
-	csvWriter.writerow(range(1,51))
-	csvWriter.writerow(recalls)
+#with open(f_path_estimated_result + 'recalls_rand.csv', 'ab') as f:
+#	print "saving recalls"
+#	csvWriter = csv.writer(f)
+#	csvWriter.writerow(range(1,51))
+#	csvWriter.writerow(recalls)
 
-with open(f_path_estimated_result + 'f_measures_rand.csv', 'ab') as f:
-	print "saving f_measures"
-	csvWriter = csv.writer(f)
-	csvWriter.writerow(range(1,51))
-	csvWriter.writerow(f_measures)
+#with open(f_path_estimated_result + 'f_measures_rand.csv', 'ab') as f:
+#	print "saving f_measures"
+#	csvWriter = csv.writer(f)
+#	csvWriter.writerow(range(1,51))
+#	csvWriter.writerow(f_measures)

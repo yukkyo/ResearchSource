@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import numpy
-import LDA
-
+# import numpy
+# import LDA
+import LDA_C
 # Latent Dirichlet Allocation + collapsed Gibbs sampling
 # 全文書(約50万)に対してLDA(Collapsed Gibbs Sampling)を適用する
 # トピック-語彙分布行列の各値からBetaを引いて転置した語彙-トピック分布、perplexitiesを返す
@@ -12,24 +12,24 @@ f_corpus_by_ids_train = "../../ResearchData/Experiment2/after_convert_id/docs_as
 f_id_to_vocab = "../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl"
 fpath_exp_result = "../../ResearchData/Experiment2/after_LDA/"
 
-def lda_learning(lda, iteration):
-	pre_perp = lda.perplexity()
-	perplexities = []
-	print "initial perplexity=%f" % pre_perp
-	for i in xrange(iteration):
-		lda.inference()
-		print "iteration: " + str(i)
-		perp = lda.perplexity()
-		perplexities.append(perp)
-		print "-%d p=%f" % (i + 1, perp)
-		if pre_perp:
-			if pre_perp < perp:
-				# output_word_topic_dist(lda, id_to_vocab)
-				pre_perp = None
-			else:
-				pre_perp = perp
-	# output_word_topic_dist(lda, id_to_vocab)
-	return perplexities, lda.calc_thetas(), lda.calc_vocab_topic_matrix()
+# def lda_learning(lda, iteration):
+# 	pre_perp = lda.perplexity()
+# 	perplexities = []
+# 	print "initial perplexity=%f" % pre_perp
+# 	for i in xrange(iteration):
+# 		lda.inference()
+# 		print "iteration: " + str(i)
+# 		perp = lda.perplexity()
+# 		perplexities.append(perp)
+# 		print "-%d p=%f" % (i + 1, perp)
+# 		if pre_perp:
+# 			if pre_perp < perp:
+# 				# output_word_topic_dist(lda, id_to_vocab)
+# 				pre_perp = None
+# 			else:
+# 				pre_perp = perp
+# 	# output_word_topic_dist(lda, id_to_vocab)
+# 	return perplexities, lda.calc_thetas(), lda.calc_vocab_topic_matrix()
 
 def main():
 	import optparse
@@ -67,20 +67,35 @@ def main():
 		print "loading end"
 
 	# LDAの初期設定
+	corpus = corpus[:500000]
+	# corpus = corpus[5000:5050]
 	print "corpus=%d, vocabs_size=%d, K=%d, a=%f, b=%f" % (len(corpus), vocabs_size, options.K, options.alpha, options.beta)
-	lda = LDA.LDA(options.K, options.alpha, options.beta, corpus, vocabs_size)
+	# lda = LDA.LDA(options.K, options.alpha, options.beta, corpus, vocabs_size)
+	lda = LDA_C.LDA(options.K, options.alpha, options.beta, corpus, vocabs_size, options.iteration)
+	# lda = LDA_C.LDA(options.K, options.alpha, options.beta, corpus, vocabs_size, 1)
+	corpus = None
+	lda.inference()
 
 	# 推論
-	perplexities, thetas, vocab_topic_matrix = lda_learning(lda, options.iteration)
+	# perplexities, thetas, vocab_topic_matrix = lda_learning(lda, options.iteration)
 
 	# 保存
 	f_result = fpath_exp_result + "k" + str(options.K) + 'a' + str(options.alpha) + 'b' + str(options.beta) + 'i' + str(options.iteration)
-	with shelve.open(f_result) as dic:
-		print "open shelve dic for saving: " + f_result
-		dic['perplexities'] = perplexities
-		dic['thetas'] = thetas
-		dic['vocab_topic_matrix'] = vocab_topic_matrix
-	print "save end!"
+	# with shelve.open(f_result) as dic:
+	# 	print "open shelve dic for saving: " + f_result
+	# 	dic['LDA'] = lda
+	# 	# dic['perplexities'] = perplexities
+	# 	# dic['thetas'] = thetas
+	# 	# dic['vocab_topic_matrix'] = vocab_topic_matrix
+	# print "save end!"
+
+	with open(f_result + '.pkl', 'wb') as f:
+		print "open for saving: " + f_result + '.pkl'
+		cPickle.dump(lda, f, cPickle.HIGHEST_PROTOCOL)
+		print "saving is end"
+
 
 if __name__ == "__main__":
-	main()
+	# main()
+
+

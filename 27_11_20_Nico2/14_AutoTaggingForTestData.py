@@ -4,102 +4,110 @@
 import cPickle
 import numpy
 
-# テストデータcorpus[100000:110000]に対してタグを50個まで推薦する
+# テストデータcorpus[500000:510000]に対してタグを50個まで推薦する
+f_path_estimated_result = "../../ResearchData/Experiment2/after_estimated/"
+f_corpus_by_ids_train = "../../ResearchData/Experiment2/after_convert_id/docs_as_id_train.pkl"
+f_id_to_vocab = "../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl"
+f_vocab_to_id = "../../ResearchData/Experiment2/after_convert_id/dic_vocab_id.pkl"
+fpath_exp_result = "../../ResearchData/Experiment2/after_LDA/"
+f_rand_num_list = '../../ResearchData/Experiment2/after_LDA/random_num_list.pkl'
 
-# corpus_by_ids_file = "../../ResearchData/After_Extract_Over20Words/corpus_by_ids0.pkl"
-# vocab_doc_freq_file = "../../ResearchData/After_Extract_Over20Words/vocab_doc_freq0.pkl"
-id_to_vocab_file = "../../ResearchData/After_Extract_Over20Words/list_id_to_vocab0.pkl"
-
-# corpus_by_ids_over10count_file = "../../ResearchData/After_Extract_Over20Words/corpus_by_ids_over10count.pkl"
-vocabs_ids_over10count_file = "../../ResearchData/After_Extract_Over20Words/vocabs_ids_over10count.pkl"
-
-new_corpus_by_ids_file = "../../ResearchData/After_Extract_Over20Words/new_corpus_by_ids.pkl"
-convert_vocabs_ids_old_to_new_file = "../../ResearchData/After_Extract_Over20Words/convert_vocabs_ids_old_to_new.pkl"
-convert_vocabs_ids_new_to_old_file = "../../ResearchData/After_Extract_Over20Words/convert_vocabs_ids_new_to_old.pkl"
-
-experiment_result_file = "../../ResearchData/After_Extract_Over20Words/experiment_result/"
-
-K = 100
-ITERATION = 250
+K = 400
+V = None
+ITERATION = 150
 ALPHA = 0.1
 BETA = 0.01
-MAX_DOCS = 100000
-MAX_TEST_DOCS = 1000
+MAX_TRAIN_DOCS = 500000
+MAX_TEST_DOCS = 10000
 MAX_AUTO_TAGGING = 50
-# corpus等の読み込み
 new_corpus = None
 id_to_vocab = None
-vocab_topic_matrix_norm = None
-vocab_topic_matrix_zero = None
-convert_ids_new_to_old = None
+vocab_to_id = None
+VK_matrix_norm = None
+VK_matrix_zero = None
 
-file_name_N_norm = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_N_norm.pkl'
-file_name_N_zero = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_N_zero.pkl'
-result_tags_file = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_result_tags.pkl'
+f_estimated_result = f_path_estimated_result + "k" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '.pkl'
+
+# VK行列の読み込み
+f_VKmatrix = fpath_exp_result + "k" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_VKmatrix'
+f_VKmatrix_norm = f_VKmatrix + '_norm.pkl'
+f_VKmatrix_zero = f_VKmatrix + '_nontagzero.pkl'
 
 # corpus等のロード
-with open(new_corpus_by_ids_file, 'rb') as f1:
-	print "loading: " + new_corpus_by_ids_file
-	corpus = cPickle.load(f1)
-
-with open(id_to_vocab_file, 'rb') as f2:
-	print "loading: " + id_to_vocab_file
+with open(f_corpus_by_ids_train, 'rb') as f1:
+	print "loading: " + f_corpus_by_ids_train
+	# corpus = cPickle.load(f1)
+	# corpus = corpus[MAX_TRAIN_DOCS : MAX_TRAIN_DOCS + MAX_TEST_DOCS]
+	corpus_raw = cPickle.load(f1)
+	# corpus = []
+	# with open(f_rand_num_list, 'rb') as f_r:
+	# 	random_num_list = cPickle.load(f_r)
+	# 	for i in xrange(MAX_TEST_DOCS):
+	# 		corpus.append(corpus_raw[random_num_list[i]])
+	corpus = corpus_raw[MAX_TRAIN_DOCS : MAX_TRAIN_DOCS + MAX_TEST_DOCS]
+	corpus_raw = None
+	print "len(testdocs) = len(corpus[randnums]) = " + str(len(corpus))
+# id_to_vocabのロード
+with open(f_id_to_vocab, 'rb') as f2:
+	print "loading: " + f_id_to_vocab
 	id_to_vocab = cPickle.load(f2)
+# 語彙トピック行列（正規化済）のロード
+with open(f_VKmatrix_norm, 'rb') as f3:
+	print "loading: " + f_VKmatrix_norm
+	VK_matrix_norm = cPickle.load(f3)
+# 語彙トピック行列（タグ以外の語彙を0にしたもの）のロード
+with open(f_VKmatrix_zero, 'rb') as f4:
+	print "loading: " + f_VKmatrix_zero
+	VK_matrix_zero = cPickle.load(f4)
 
-with open(file_name_N_norm, 'rb') as f3:
-	print "loading: " + file_name_N_norm
-	vocab_topic_matrix_norm = cPickle.load(f3)
+# タグ一覧(語彙id表記)を作る
+tag_ids_set = set([])
+count = 0
+with open(f_id_to_vocab, 'rb') as f:
+	print "loading: " + f_id_to_vocab
+	id_to_vocab = cPickle.load(f)
+	print "make tag_ids_set"
+	for i in xrange(len(id_to_vocab)):
+		if id_to_vocab[i].find('___') == 0:
+			count += 1
+			tag_ids_set.add(i)
+	print "tag count: " + str(count)
+	print "end make tag_ids_set"
 
-with open(file_name_N_zero, 'rb') as f4:
-	print "loading: " + file_name_N_zero
-	vocab_topic_matrix_zero = cPickle.load(f4)
-
-# タグ一覧(新しいidでの)を作る
-tag_ids_new = set([])
-with open(convert_vocabs_ids_new_to_old_file, 'rb') as f:
-	print "loading: " + convert_vocabs_ids_new_to_old_file
-	voca_id_new_to_old = cPickle.load(f)
-	print "make tag_ids_new"
-	for i in xrange(len(voca_id_new_to_old)):
-		if id_to_vocab[voca_id_new_to_old[i]].find('___') == 0:
-			tag_ids_new.add(i)
-	print "end make tag_ids_new"
-
-# 各文書について、タグをのぞいた中からトピックの重みを算出する
+# テストデータの各文書について、タグをのぞいた中からトピックの重みを算出する
 topics_weight_docs = numpy.zeros((MAX_TEST_DOCS, K))
 print "make topics_weight_docs"
-for i, doc in enumerate(corpus[MAX_DOCS:MAX_DOCS + MAX_TEST_DOCS]):
-	for vocab in doc:
- 		if not vocab in tag_ids_new:
- 			topics_weight_docs[i] += vocab_topic_matrix_norm[vocab]
+count_emptydocs = 0
+for i, doc in enumerate(corpus):
+	if len(doc) == 0:
+		count_emptydocs += 1
+		topics_weight_docs[i] += 1.
+		print "doc is empty: " + str(i)
+	else:
+		for vocab in doc:
+			if not vocab in tag_ids_set:
+				topics_weight_docs[i] += VK_matrix_norm[vocab]
+print "empty docs: " + str(count_emptydocs)
 
-# かけざんする
-print "vocab_topic_matrix_zero dot topics_weight_docs"
-print "test vocab_topic_matrix_zero"
-for i in range(10):
-	if numpy.sum(vocab_topic_matrix_zero[i+500]) > 0:
-		print id_to_vocab[voca_id_new_to_old[i+500]]
-                print vocab_topic_matrix_zero[i+500]
-for i in range(20):
-        print id_to_vocab[voca_id_new_to_old[i]]
-        print vocab_topic_matrix_zero[i]
-only_tags_docs = vocab_topic_matrix_zero.dot(topics_weight_docs.transpose())
-only_tags_docs = only_tags_docs.transpose()
-print numpy.shape(only_tags_docs)
+print "shape of topics_weight_docs: "
+print numpy.shape(topics_weight_docs)
 
 # トピックの重みから推薦する単語(新id)を決める
 result_tags = numpy.zeros((MAX_TEST_DOCS, MAX_AUTO_TAGGING)).astype(numpy.int64)
 print "auto tagging by topicc weight of docs"
 for i in xrange(MAX_TEST_DOCS):
-	result_tags[i] = numpy.argsort(only_tags_docs[i])[-MAX_AUTO_TAGGING:][::-1]
+	only_tags_doc = VK_matrix_zero.dot(topics_weight_docs[i].transpose())
+	result_tags[i] = numpy.argsort(only_tags_doc)[-MAX_AUTO_TAGGING:][::-1]
+	if i % 2000 == 0:
+		print "end docs: " + str(i)
 print numpy.shape(result_tags)
 print "auto tagging end"
 
-print "sample tags"
-for tag in result_tags[400]:
-	print id_to_vocab[voca_id_new_to_old[tag]]
+print "sample estimated tags"
+for tag in result_tags[5000]:
+	print id_to_vocab[tag]
 
-with open(result_tags_file, 'wb') as f:
-	print "open for saving: " + result_tags_file
- 	cPickle.dump(result_tags, f, cPickle.HIGHEST_PROTOCOL)
- 	print "saving is end"
+with open(f_estimated_result, 'wb') as f:
+	print "open for saving: " + f_estimated_result
+	cPickle.dump(result_tags, f, cPickle.HIGHEST_PROTOCOL)
+	print "saving is end"

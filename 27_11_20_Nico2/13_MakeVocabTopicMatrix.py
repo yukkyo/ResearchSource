@@ -5,94 +5,66 @@ import cPickle
 import numpy
 
 # もとめた全文書に割り振ったトピックから、各語彙が各トピックに割り振られた回数を示す
-# V x K 行列を作る
+# V x K 行列を作る。また正規化したものとタグ以外を0にしたものも作る
 
-# corpus_by_ids_file = "../../ResearchData/After_Extract_Over20Words/corpus_by_ids0.pkl"
-# vocab_doc_freq_file = "../../ResearchData/After_Extract_Over20Words/vocab_doc_freq0.pkl"
-id_to_vocab_file = "../../ResearchData/After_Extract_Over20Words/list_id_to_vocab0.pkl"
+f_estimated_result = "../../ResearchData/Experiment2/after_estimated/"
+f_corpus_by_ids_train = "../../ResearchData/Experiment2/after_convert_id/docs_as_id_train.pkl"
+f_id_to_vocab = "../../ResearchData/Experiment2/after_convert_id/list_id_vocab.pkl"
+f_vocab_to_id = "../../ResearchData/Experiment2/after_convert_id/dic_vocab_id.pkl"
+fpath_exp_result = "../../ResearchData/Experiment2/after_LDA/"
 
-# corpus_by_ids_over10count_file = "../../ResearchData/After_Extract_Over20Words/corpus_by_ids_over10count.pkl"
-# vocabs_ids_over10count_file = "../../ResearchData/After_Extract_Over20Words/vocabs_ids_over10count.pkl"
-
-new_corpus_by_ids_file = "../../ResearchData/After_Extract_Over20Words/new_corpus_by_ids.pkl"
-convert_vocabs_ids_old_to_new_file = "../../ResearchData/After_Extract_Over20Words/convert_vocabs_ids_old_to_new.pkl"
-convert_vocabs_ids_new_to_old_file = "../../ResearchData/After_Extract_Over20Words/convert_vocabs_ids_new_to_old.pkl"
-
-experiment_result_file = "../../ResearchData/After_Extract_Over20Words/experiment_result/"
-K = 100
-ITERATION = 250
+K = 400
+V = None
+ITERATION = 150
 ALPHA = 0.1
 BETA = 0.01
-MAX_DOCS = 100000
-# corpus等の読み込み
-new_corpus = None
+
+# id_to_vocabと語彙の大きさVの取得
 id_to_vocab = None
-topics = None
-convert_ids_new_to_old = None
-
-with open(new_corpus_by_ids_file, 'rb') as f:
-	print "loading: " + new_corpus_by_ids_file
-	corpus = cPickle.load(f)
-
-with open(id_to_vocab_file, 'rb') as f:
-	print "loading: " + id_to_vocab_file
+with open(f_id_to_vocab, 'rb') as f:
+	print "loading: " + f_id_to_vocab
 	id_to_vocab = cPickle.load(f)
+	V = len(id_to_vocab)
+	print "len(id_to_vocab) = V " + str(V)
 
-file_name_topics = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_topics.pkl'
-with open(file_name_topics, 'rb') as f:
-	print "loading: " + file_name_topics
-	all_topics_in_corpus = cPickle.load(f)
-
-with open(convert_vocabs_ids_new_to_old_file, 'rb') as f:
-	print "loading: " + convert_vocabs_ids_new_to_old_file
-	convert_ids_new_to_old = cPickle.load(f)
-	print "len(convert_ids_new_to_old): " + str(len(convert_ids_new_to_old))
+# VK行列の読み込み
+f_VKmatrix = fpath_exp_result + "k" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_VKmatrix'
+f_VKmatrix_norm = f_VKmatrix + '_norm.pkl'
+f_VKmatrix_nontagzero = f_VKmatrix + '_nontagzero.pkl'
+VK_matrix = None
+with open(f_VKmatrix + '.pkl', 'rb') as f:
+	print "loading: " + f_VKmatrix
+	VK_matrix = cPickle.load(f)
+	print "loading end"
 
 # VK行列nを初期化する
-V = len(convert_ids_new_to_old)
-vocab_topic_matrix = numpy.zeros((V, K))
-vocab_topic_matrix_normalized = numpy.zeros((V, K))
-vocab_topic_matrix_nontag_zero = numpy.zeros((V, K))
-
-# corpus中の全単語と、topicsを比べて、カウントする
-print "count topics for each vocab"
-for m, doc in enumerate(corpus[:MAX_DOCS]):
-	for n, vocab in enumerate(doc):
-		topic = all_topics_in_corpus[m][n]
-		vocab_topic_matrix[vocab][topic] += 1
+VK_matrix_normalized = numpy.zeros((V, K))
+VK_matrix_nontag_zero = numpy.zeros((V, K))
 
 # 各語彙について、正規化したn'	を作る
 print "normalize vocab_topic_matrix"
-for i in range(V):
-	if numpy.sum(vocab_topic_matrix[i]) != 0:
-		vocab_topic_matrix_normalized[i] = vocab_topic_matrix[i] / vocab_topic_matrix[i].sum()
-		vocab_topic_matrix_nontag_zero[i] = vocab_topic_matrix[i] / vocab_topic_matrix[i].sum()
+for i in xrange(V):
+	if numpy.sum(VK_matrix[i]) != 0:
+		VK_matrix_normalized[i] = VK_matrix[i] / VK_matrix[i].sum()
+		VK_matrix_nontag_zero[i] = VK_matrix_normalized[i]
 
 # nのうち、タグ以外の単語に関する行の数値を0にしたn_zeroを作る
 print "zero nontag vocab"
 count = 0
 for i in xrange(V):
-	if id_to_vocab[convert_ids_new_to_old[i]].find('___') != 0:
-		vocab_topic_matrix_nontag_zero[i] = 0.
-                count += 1
-                if count > 500 and count < 520:
-                        print id_to_vocab[convert_ids_new_to_old[i]]
-                        print vocab_topic_matrix_nontag_zero[i]        
-file_name_N = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_N.pkl'
-file_name_N_norm = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_N_norm.pkl'
-file_name_N_zero = experiment_result_file + "K" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '_N_zero.pkl'
+	if id_to_vocab[i].find('___') != 0:
+		count += 1
+		VK_matrix_nontag_zero[i] = 0.
+print "all vocabs: " + str(V)
+print "nontag vocabs: " + str(count)
+print "tag vocabs: " + str(V - count)
 
-with open(file_name_N, 'wb') as f:
-	print "saving: " + file_name_N
-	cPickle.dump(vocab_topic_matrix, f, cPickle.HIGHEST_PROTOCOL)
-	"save end"
-
-with open(file_name_N_norm, 'wb') as f:
-	print "saving: " + file_name_N_norm
-	cPickle.dump(vocab_topic_matrix_normalized, f, cPickle.HIGHEST_PROTOCOL)
-	"save end"
-
-with open(file_name_N_zero, 'wb') as f:
-	print "saving: " + file_name_N_zero
-	cPickle.dump(vocab_topic_matrix_nontag_zero, f, cPickle.HIGHEST_PROTOCOL)
-	"save end"
+# VK_matrix_normとVK_matrix_nontag_zeroの保存
+with open(f_VKmatrix_norm, 'wb') as f:
+	print "saving: " + f_VKmatrix_norm
+	cPickle.dump(VK_matrix_normalized, f, cPickle.HIGHEST_PROTOCOL)
+	print "saving is end"
+with open(f_VKmatrix_nontagzero, 'wb') as f:
+	print "saving: " + f_VKmatrix_nontagzero
+	cPickle.dump(VK_matrix_nontag_zero, f, cPickle.HIGHEST_PROTOCOL)
+	print "saving is end"

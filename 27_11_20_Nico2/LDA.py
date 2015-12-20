@@ -15,7 +15,7 @@ class LDA:
 		self.beta = beta   # parameter of words prior
 		self.docs = docs
 		self.V = V         # size of vocabulary
-
+                self.perps[]
 		self.z_m_n = [] # topics of words of documents
 		len_docs = len(self.docs)
 		self.n_m_z = numpy.zeros((len_docs, K)) + alpha     # word count of each document and topic
@@ -28,9 +28,9 @@ class LDA:
 			self.N += len(doc)
 			z_n = []
 			for t in doc:
-				p_z = self.n_z_t[:, t] * self.n_m_z[m] / self.n_z
-				z = numpy.random.multinomial(1, p_z / p_z.sum()).argmax()
-				# z = numpy.random.randint(0, K)
+				# p_z = self.n_z_t[:, t] * self.n_m_z[m] / self.n_z
+				# z = numpy.random.multinomial(1, p_z / p_z.sum()).argmax()
+				z = numpy.random.randint(0, K)
 				z_n.append(z)
 				self.n_m_z[m, z] += 1
 				self.n_z_t[z, t] += 1
