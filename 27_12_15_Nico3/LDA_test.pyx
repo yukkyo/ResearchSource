@@ -61,9 +61,14 @@ class LDA:
 		cdef vector[vector[int]] z_m_n
 		cdef vector[int] z_n
 		cdef double RAND_MAX_DOUBLE = <double>RAND_MAX
+		cdef vector[int] docs_len
+		docs_len = vector[int](max_docs)
 
 		for m in xrange(max_docs):
-			len_doc = docs[m].size()
+			docs_len[m] = docs[m].size()
+
+		for m in xrange(max_docs):
+			len_doc = docs_len[m]
 			n_corpus += len_doc
 			z_n.clear()
 			for n in xrange(len_doc):
@@ -93,6 +98,7 @@ class LDA:
 		cdef vector[double] theta
 		cdef double log_per, tmp_logper, len_doc_kalpha, sum_alpha, numerator_beta, denominator_beta
 		cdef vector[double] numerator_alpha, denominator_alpha
+		cdef double psi_sum_max_doc
 
 		print "calc first perp"
 		n_z_t_tmp = n_z_t
@@ -104,7 +110,7 @@ class LDA:
 		for j in xrange(n_topics_int):
 			sum_alpha += alphas[j]
 		for m in xrange(max_docs):
-			len_doc = docs[m].size()
+			len_doc = docs_len[m]
 			len_doc_kalpha = <double>len_doc + sum_alpha
 			theta = n_m_z[m]
 			docs_m = docs[m]
@@ -127,7 +133,7 @@ class LDA:
 			print "ite: " + str(ite)
 			# sampling each word in corpus
 			for m in xrange(max_docs):
-				len_doc = docs[m].size()
+				len_doc = docs_len[m]
 				n_m_z_m = n_m_z[m]
 				z_m_n_m = z_m_n[m]
 				for n in xrange(len_doc):
@@ -166,19 +172,28 @@ class LDA:
 
 			print "calc new alpha and beta"
 			"""calc new alpha"""
-                        numerator_alpha = vector[double](n_topics_int, 0.)
-                        denominator_alpha = vector[double](n_topics_int, 0.)
+			# 必要な変数の初期化
+			numerator_alpha = vector[double](n_topics_int, 0.)
+			denominator_alpha = vector[double](n_topics_int, 0.)
 			sum_alpha = 0.0
 			for j in xrange(n_topics_int):
 				sum_alpha += alphas[j]
-                        for m in xrange(max_docs):
-                                for j in xrange(n_topics_int):
-                                        numerator_alpha[j] += psi(n_m_z[m][j] + alphas[j])
-                                        denominator_alpha[j] += psi(<double>docs[m].size() + sum_alpha)
-                        for j in xrange(n_topics_int):
-                                
+
+			for m in xrange(max_docs):
+				for j in xrange(n_topics_int):
+					numerator_alpha[j] += psi(n_m_z[m][j] + alphas[j])
+					denominator_alpha[j] += psi(<double>docs_len[m] + sum_alpha)
+			psi_sum_max_doc = psi(sum_alpha) * <double>max_docs
+			for j in xrange(n_topics_int):
+				numerator_alpha[j] -= psi(alphas[j]) * <double>max_docs
+				denominator_alpha[j] -= psi_sum_max_doc
+			for j in xrange(n_topics_int):
+				alphas[j] *= numerator_alpha[j] / denominator_alpha[j]
+			numerator_alpha.clear()
+			denominator_beta.clear()
 
 			"""calc new beta"""
+
 
 			print "calc perp"
 			log_per = 0.0
@@ -187,7 +202,7 @@ class LDA:
 				for j in xrange(n_topics_int):
 					n_z_t_tmp[v][j] = (n_z_t_tmp[v][j] + beta) / (n_z[j] + Vbeta)
 			for m in xrange(max_docs):
-				len_doc = docs[m].size()
+				len_doc = docs_len[m]
 				len_doc_kalpha = <double>len_doc + sum_alpha
 				theta = n_m_z[m]
 				docs_m = docs[m]
