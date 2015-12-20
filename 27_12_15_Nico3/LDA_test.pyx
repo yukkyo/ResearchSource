@@ -98,7 +98,7 @@ class LDA:
 		cdef vector[double] theta
 		cdef double log_per, tmp_logper, len_doc_kalpha, sum_alpha, numerator_beta, denominator_beta
 		cdef vector[double] numerator_alpha, denominator_alpha
-		cdef double psi_sum_max_doc
+		cdef double psi_sum_alphas
 
 		print "calc first perp"
 		n_z_t_tmp = n_z_t
@@ -179,21 +179,35 @@ class LDA:
 			for j in xrange(n_topics_int):
 				sum_alpha += alphas[j]
 
+			psi_sum_alphas = psi(sum_alpha)
 			for m in xrange(max_docs):
 				for j in xrange(n_topics_int):
 					numerator_alpha[j] += psi(n_m_z[m][j] + alphas[j])
-					denominator_alpha[j] += psi(<double>docs_len[m] + sum_alpha)
-			psi_sum_max_doc = psi(sum_alpha) * <double>max_docs
+					denominator_alpha[j] += psi(<double>docs_len[m] + sum_alpha - psi_sum_alphas)
+				if (m + 1) % 100000 == 0:
+					print "end alpha: " + str(m + 1)
+
 			for j in xrange(n_topics_int):
 				numerator_alpha[j] -= psi(alphas[j]) * <double>max_docs
-				denominator_alpha[j] -= psi_sum_max_doc
+
+			# alphasを再計算
 			for j in xrange(n_topics_int):
 				alphas[j] *= numerator_alpha[j] / denominator_alpha[j]
 			numerator_alpha.clear()
-			denominator_beta.clear()
+			denominator_alpha.clear()
 
 			"""calc new beta"""
+			numerator_beta = 0
+			for v in xrange(V_int):
+				for j in xrange(n_topics_int):
+					numerator_beta += psi(n_z_t[j][v] + beta)
+			numerator_beta -= psi(beta) * V * n_topics
 
+			denominator_beta = psi(n_corpus + n_topics * beta) - psi(Vbeta)
+			denominator_beta *= n_topics
+
+			beta *= numerator_beta / (V * denominator_beta)
+			Vbeta = beta * V
 
 			print "calc perp"
 			log_per = 0.0
