@@ -5,11 +5,11 @@ import cPickle
 import numpy
 
 # テストデータcorpus[500000:510000]に対してタグを50個まで推薦する
-f_path_estimated_result = "../../ResearchData/Experiment3/after_estimated/"
-f_corpus_by_ids_test = "../../ResearchData/Experiment3/after_convert_id/docs_as_id_train_over5.pkl"
-f_id_to_vocab = "../../ResearchData/Experiment3/after_convert_id/list_id_vocab.pkl"
-f_vocab_to_id = "../../ResearchData/Experiment3/after_convert_id/dic_vocab_id.pkl"
-fpath_matrix = "../../ResearchData/Experiment3/after_Matrix/"
+f_path_estimated_result = "../../ResearchData/Experiment4/after_estimated/"
+f_corpus_by_ids_test = "../../ResearchData/Experiment4/after_convert_id/docs_as_id_train.pkl"
+f_id_to_vocab = "../../ResearchData/Experiment4/after_convert_id/list_id_vocab.pkl"
+f_vocab_to_id = "../../ResearchData/Experiment4/after_convert_id/dic_vocab_id.pkl"
+fpath_matrix = "../../ResearchData/Experiment4/after_Matrix/"
 
 K = 400
 V = None
@@ -35,7 +35,7 @@ f_VKmatrix_zero = f_VKmatrix + '_nontagzero.pkl'
 with open(f_VKmatrix_norm, 'rb') as f:
 	print "loading: " + f_VKmatrix_norm
 	VK_matrix_norm = cPickle.load(f)
-# 語彙トピック行列（元の行列においてタグ以外の語彙を0にしたもの）のロード
+# 語彙トピック行列（タグ以外の語彙を0にしたもの）のロード
 with open(f_VKmatrix_zero, 'rb') as f:
 	print "loading: " + f_VKmatrix_zero
 	VK_matrix_zero = cPickle.load(f)

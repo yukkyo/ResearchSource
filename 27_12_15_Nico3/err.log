@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "12_RunGibbsSampling.py", line 73, in <module>
+    main()
+  File "12_RunGibbsSampling.py", line 56, in main
+    lda = LDA_C.LDA(options.K, options.alpha, options.beta, corpus, vocabs_size, 1)
+  File "LDA_test.pyx", line 216, in LDA_C.LDA.__init__ (LDA_test.cpp:3255)
+    print "beta:" + beta
+TypeError: cannot concatenate 'str' and 'float' objects

@@ -7,9 +7,9 @@ import LDA_C
 # もとめた全文書に割り振ったトピックから、各語彙が各トピックに割り振られた回数を示す
 # V x K 行列を作る。また正規化したものとタグ以外を0にしたものも作る
 
-f_id_to_vocab = "../../ResearchData/Experiment3/after_convert_id/list_id_vocab.pkl"
-fpath_exp_result = "../../ResearchData/Experiment3/after_LDA/"
-fpath_matrix = "../../ResearchData/Experiment3/after_Matrix/"
+f_id_to_vocab = "../../ResearchData/Experiment4/after_convert_id/list_id_vocab.pkl"
+fpath_exp_result = "../../ResearchData/Experiment4/after_LDA/"
+fpath_matrix = "../../ResearchData/Experiment4/after_Matrix/"
 
 K = 400
 V = None
@@ -24,6 +24,9 @@ with open(f_id_to_vocab, 'rb') as f:
 	id_to_vocab = cPickle.load(f)
 	V = len(id_to_vocab)
 	print "len(id_to_vocab) = V " + str(V)
+
+for i in xrange(20):
+	print id_to_vocab[i * 200]
 
 # vocab-topic-countの読み込み
 f_lda = fpath_exp_result + "k" + str(K) + 'a' + str(ALPHA) + 'b' + str(BETA) + 'i' + str(ITERATION) + '.pkl'

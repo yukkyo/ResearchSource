@@ -1,0 +1,2117 @@
+loading corpus_train: ../../ResearchData/Experiment4/after_convert_id/docs_as_id_train.pkl
+loading end
+loading id_to_vocab: ../../ResearchData/Experiment4/after_convert_id/list_id_vocab.pkl
+vocabs_size134956
+loading end
+corpus=500000, vocabs_size=134956, K=400, a=0.500000, b=0.500000
+init lda instance
+initalize topics
+end initialize topics
+inference start
+calc first perp
+perp: 63694.6933903
+ite: 0
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 42784.1570503
+ite: 1
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 27459.5809163
+ite: 2
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 20340.0896767
+ite: 3
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 16085.9819651
+ite: 4
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 13243.1864586
+ite: 5
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 11238.1796154
+ite: 6
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 9767.35685087
+ite: 7
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 8664.099053
+ite: 8
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 7790.57067102
+ite: 9
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 7091.94350271
+ite: 10
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 6510.42757895
+ite: 11
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 6026.54755254
+ite: 12
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 5609.40582157
+ite: 13
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 5253.49287061
+ite: 14
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 4943.39838626
+ite: 15
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 4675.87385277
+ite: 16
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 4439.28783665
+ite: 17
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 4227.4371591
+ite: 18
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 4038.66067258
+ite: 19
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3869.13080402
+ite: 20
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3718.10551667
+ite: 21
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3581.03390275
+ite: 22
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3457.10745671
+ite: 23
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3347.03092846
+ite: 24
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3247.14822837
+ite: 25
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3152.87485461
+ite: 26
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 3068.47631387
+ite: 27
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2989.45528891
+ite: 28
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2917.85610442
+ite: 29
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2851.42664486
+ite: 30
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2790.93449814
+ite: 31
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2734.37746165
+ite: 32
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2682.43623077
+ite: 33
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2632.736013
+ite: 34
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2586.92515541
+ite: 35
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2543.38170026
+ite: 36
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2504.11257078
+ite: 37
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2467.08780014
+ite: 38
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2430.77969389
+ite: 39
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2398.29348692
+ite: 40
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2366.03761363
+ite: 41
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2335.61993288
+ite: 42
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2306.90617302
+ite: 43
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2279.89861808
+ite: 44
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2255.49401967
+ite: 45
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2231.29206235
+ite: 46
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2208.80359814
+ite: 47
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2187.39886944
+ite: 48
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2166.74138339
+ite: 49
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2146.87958824
+ite: 50
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2128.04391077
+ite: 51
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2110.8303977
+ite: 52
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2094.29999389
+ite: 53
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2077.60441946
+ite: 54
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2062.6087123
+ite: 55
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2046.57595841
+ite: 56
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2032.81602806
+ite: 57
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2019.44409236
+ite: 58
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 2006.4686501
+ite: 59
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1994.24700375
+ite: 60
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1982.14368674
+ite: 61
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1969.54949667
+ite: 62
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1958.80992761
+ite: 63
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1948.41863994
+ite: 64
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1938.46186012
+ite: 65
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1928.8558184
+ite: 66
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1919.93687232
+ite: 67
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1911.43612225
+ite: 68
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1903.11772114
+ite: 69
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1894.77719686
+ite: 70
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1886.97473749
+ite: 71
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1879.59595664
+ite: 72
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1872.55242728
+ite: 73
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1865.55632517
+ite: 74
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1858.93904367
+ite: 75
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1852.6961188
+ite: 76
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1846.50554316
+ite: 77
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1840.25232357
+ite: 78
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1833.72103071
+ite: 79
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1827.88646819
+ite: 80
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1822.83369531
+ite: 81
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1817.42793434
+ite: 82
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1812.20682667
+ite: 83
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1806.3362942
+ite: 84
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1801.9074418
+ite: 85
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1796.90515604
+ite: 86
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1792.7834541
+ite: 87
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1788.77877419
+ite: 88
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1784.91712666
+ite: 89
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1781.08387185
+ite: 90
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1777.1849952
+ite: 91
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1772.7904823
+ite: 92
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1768.74187261
+ite: 93
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1765.45129771
+ite: 94
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1761.65153484
+ite: 95
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1758.07568781
+ite: 96
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1754.05713583
+ite: 97
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1751.25563608
+ite: 98
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1748.87264606
+ite: 99
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1745.87720152
+ite: 100
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1741.8395834
+ite: 101
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1739.36200334
+ite: 102
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1736.39122366
+ite: 103
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1733.90094493
+ite: 104
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1730.58495564
+ite: 105
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1728.96085538
+ite: 106
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1726.5509082
+ite: 107
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1723.78660442
+ite: 108
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1721.478954
+ite: 109
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1719.58157145
+ite: 110
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1717.30003034
+ite: 111
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1714.70619207
+ite: 112
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1712.39824195
+ite: 113
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1710.50680002
+ite: 114
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1708.56689076
+ite: 115
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1706.10866232
+ite: 116
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1704.18582665
+ite: 117
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1701.7982506
+ite: 118
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1699.78515978
+ite: 119
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1698.05937975
+ite: 120
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1696.28975347
+ite: 121
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1694.38642756
+ite: 122
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1692.43481397
+ite: 123
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1690.46578561
+ite: 124
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1688.89358956
+ite: 125
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1686.90055051
+ite: 126
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1685.34162656
+ite: 127
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1684.08494245
+ite: 128
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1682.68177305
+ite: 129
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1681.017649
+ite: 130
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1679.38295745
+ite: 131
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1677.67847115
+ite: 132
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1675.60225835
+ite: 133
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1674.17272507
+ite: 134
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1672.26625123
+ite: 135
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1671.0038846
+ite: 136
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1669.80647023
+ite: 137
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1668.46016153
+ite: 138
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1667.13883462
+ite: 139
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1665.68750686
+ite: 140
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1664.51082469
+ite: 141
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1663.1510274
+ite: 142
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1661.73116589
+ite: 143
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1661.01921193
+ite: 144
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1659.47011301
+ite: 145
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1657.73688391
+ite: 146
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1656.8361535
+ite: 147
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1655.4567542
+ite: 148
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1654.20405341
+ite: 149
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1652.86287804
+ite: 150
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1651.33485132
+ite: 151
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1650.30593772
+ite: 152
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1649.28196813
+ite: 153
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1648.15286171
+ite: 154
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1647.51189153
+ite: 155
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1646.25158032
+ite: 156
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1645.21653986
+ite: 157
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1644.20869682
+ite: 158
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1643.1663005
+ite: 159
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1642.16840004
+ite: 160
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1641.00199494
+ite: 161
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1640.38522335
+ite: 162
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1639.37848389
+ite: 163
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1638.25429908
+ite: 164
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1637.50503729
+ite: 165
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1635.73511972
+ite: 166
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1634.8701019
+ite: 167
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1634.1686402
+ite: 168
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1633.18141604
+ite: 169
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1631.77698975
+ite: 170
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1631.08288953
+ite: 171
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1630.45101592
+ite: 172
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1629.69692471
+ite: 173
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1628.70426782
+ite: 174
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1627.93408728
+ite: 175
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1627.0278421
+ite: 176
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1626.08499971
+ite: 177
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1625.24386765
+ite: 178
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1624.3383096
+ite: 179
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1623.62808076
+ite: 180
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1622.31427502
+ite: 181
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1621.22714593
+ite: 182
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1620.6566017
+ite: 183
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1619.66760496
+ite: 184
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1619.24096263
+ite: 185
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1618.56044876
+ite: 186
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1617.87327572
+ite: 187
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1616.94238343
+ite: 188
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1616.12453107
+ite: 189
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1615.33901275
+ite: 190
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1615.17079761
+ite: 191
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1614.51009443
+ite: 192
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1614.2060918
+ite: 193
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1613.29155442
+ite: 194
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1611.84786822
+ite: 195
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1611.47826968
+ite: 196
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1610.50461873
+ite: 197
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1609.94856814
+ite: 198
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1609.29344016
+ite: 199
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1608.50804644
+ite: 200
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1607.95657489
+ite: 201
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1607.34324141
+ite: 202
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1606.84151777
+ite: 203
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1606.08821491
+ite: 204
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1605.3065706
+ite: 205
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1604.64458321
+ite: 206
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1603.88576808
+ite: 207
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1603.03337203
+ite: 208
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1602.3389901
+ite: 209
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1601.86865054
+ite: 210
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1601.53323884
+ite: 211
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1601.18826557
+ite: 212
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1599.92916272
+ite: 213
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1599.39448084
+ite: 214
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1598.57655322
+ite: 215
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1598.00645071
+ite: 216
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1597.46168345
+ite: 217
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1596.87121913
+ite: 218
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1596.42951637
+ite: 219
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1595.64576159
+ite: 220
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1595.10712262
+ite: 221
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1593.99767169
+ite: 222
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1593.89758356
+ite: 223
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1593.477793
+ite: 224
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1592.89917416
+ite: 225
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1592.47127659
+ite: 226
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1591.92632137
+ite: 227
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1591.28402791
+ite: 228
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1591.18062838
+ite: 229
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1590.9076969
+ite: 230
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1589.60973053
+ite: 231
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1589.17655648
+ite: 232
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1588.59014872
+ite: 233
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1588.33250479
+ite: 234
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1587.96386538
+ite: 235
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1587.04513915
+ite: 236
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1586.98729463
+ite: 237
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1586.32809307
+ite: 238
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1585.60739971
+ite: 239
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1585.15445815
+ite: 240
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1584.57395707
+ite: 241
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1584.02989192
+ite: 242
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1583.5046446
+ite: 243
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1583.35852456
+ite: 244
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1582.25061862
+ite: 245
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1582.05482668
+ite: 246
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1581.41497131
+ite: 247
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1580.8524353
+ite: 248
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1580.90376915
+ite: 249
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1580.63529588
+ite: 250
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1579.94935155
+ite: 251
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1579.26150479
+ite: 252
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1579.64868017
+ite: 253
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1578.45769479
+ite: 254
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1578.12256462
+ite: 255
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1577.77860374
+ite: 256
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1576.92845847
+ite: 257
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1576.14943195
+ite: 258
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1576.24733737
+ite: 259
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1576.07094442
+ite: 260
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1575.80293632
+ite: 261
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1575.32181264
+ite: 262
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1574.47348325
+ite: 263
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1574.32198142
+ite: 264
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1573.83823893
+ite: 265
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1573.46599004
+ite: 266
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1573.1963183
+ite: 267
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1572.67988295
+ite: 268
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1572.27945148
+ite: 269
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1571.89421455
+ite: 270
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1571.67719712
+ite: 271
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1570.84781154
+ite: 272
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1570.91830321
+ite: 273
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1570.43163576
+ite: 274
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1570.13741937
+ite: 275
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1570.16587222
+ite: 276
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1569.83124605
+ite: 277
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1569.4661842
+ite: 278
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1569.24384105
+ite: 279
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1568.68665018
+ite: 280
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1568.62215665
+ite: 281
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1567.84348501
+ite: 282
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1567.57647906
+ite: 283
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1567.1628859
+ite: 284
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1566.81105363
+ite: 285
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1566.97284665
+ite: 286
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1566.0931084
+ite: 287
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1565.92250261
+ite: 288
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1565.51000739
+ite: 289
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1564.83133675
+ite: 290
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1564.67983826
+ite: 291
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1564.44623015
+ite: 292
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1564.1899989
+ite: 293
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1563.93872822
+ite: 294
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1563.24027823
+ite: 295
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1563.22851567
+ite: 296
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1563.08531887
+ite: 297
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1562.07282912
+ite: 298
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1561.84954125
+ite: 299
+sampling start
+calc new alpha and beta
+end alphas
+end beta
+calc perp
+perp: 1561.50095192
+elapsed_time:10184.240694[sec]
+open for saving: ../../ResearchData/Experiment4/after_LDA/k400a0.5b0.5i300.pkl
+saving is end
+i300.pkl
+saving is end

@@ -9,9 +9,9 @@ import time
 # 全文書(約50万)に対してLDA(Collapsed Gibbs Sampling)を適用する
 # トピック-語彙分布行列の各値からBetaを引いて転置した語彙-トピック分布、perplexitiesを返す
 
-f_corpus_by_ids_train = "../../ResearchData/Experiment3/after_convert_id/docs_as_id_train_over5.pkl"
-f_id_to_vocab = "../../ResearchData/Experiment3/after_convert_id/list_id_vocab.pkl"
-fpath_exp_result = "../../ResearchData/Experiment3/after_LDA/"
+f_corpus_by_ids_train = "../../ResearchData/Experiment4/after_convert_id/docs_as_id_train.pkl"
+f_id_to_vocab = "../../ResearchData/Experiment4/after_convert_id/list_id_vocab.pkl"
+fpath_exp_result = "../../ResearchData/Experiment4/after_LDA/"
 
 def main():
 	import optparse

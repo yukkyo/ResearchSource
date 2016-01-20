@@ -6,10 +6,10 @@ import numpy
 import csv
 
 # 推薦した結果のPrecision Recall などを計算する
-f_path_estimated_result = "../../ResearchData/Experiment3/after_estimated/"
-f_corpus_by_ids_test = "../../ResearchData/Experiment3/after_convert_id/docs_as_id_train_over5.pkl"
-f_id_to_vocab = "../../ResearchData/Experiment3/after_convert_id/list_id_vocab.pkl"
-f_vocab_to_id = "../../ResearchData/Experiment3/after_convert_id/dic_vocab_id.pkl"
+f_path_estimated_result = "../../ResearchData/Experiment4/after_estimated/"
+f_corpus_by_ids_test = "../../ResearchData/Experiment4/after_convert_id/docs_as_id_train.pkl"
+f_id_to_vocab = "../../ResearchData/Experiment4/after_convert_id/list_id_vocab.pkl"
+f_vocab_to_id = "../../ResearchData/Experiment4/after_convert_id/dic_vocab_id.pkl"
 
 K = 400
 V = None
@@ -66,12 +66,10 @@ for i in range(MAX_AUTO_TAGGING):
 	f_measure = 0.
 	for j, est_tags in enumerate(estimated_tags):
 		# 推薦するタグの個数だけ取り出す
+		# est_tags = est_tags[-1::-1]
 		part_of_est_tags = set(est_tags[:i+1])
-		pre = float((len(correct_answers[j] & part_of_est_tags))) / float(len(part_of_est_tags))
-		if len(correct_answers[j]) == 0:
-			rec = 0.
-		else:
-			rec = float((len(correct_answers[j] & part_of_est_tags))) / float(len(correct_answers[j]))
+		pre = float((len(correct_answers[j] & part_of_est_tags))) / (i + 1)
+		rec = float((len(correct_answers[j] & part_of_est_tags))) / float(len(correct_answers[j]))
 		precision += pre
 		recall += rec
 		if (pre + rec) == 0:
